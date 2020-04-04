@@ -45,6 +45,10 @@ custom:
       - name: GroupRequest
         contentType: application/json
         schema: ${file(models/create-group-request.json)}
+    models:
+      - name: createImageRequest
+        contentType: application/json
+        schema: ${file(models/create-image-request.json)}
 
 functions:
 
@@ -80,6 +84,17 @@ functions:
 
   CreateImage:
     handler: src/lambda/http/createImage.handler
+    events:
+      - http:
+          method: POST
+          path: groups/{groupId}/image
+          cors: true
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new image to group
+            description: Create a new image to group
+            requestModels:
+              'application/json': createImageRequest
 
 resources:
   Resources:
