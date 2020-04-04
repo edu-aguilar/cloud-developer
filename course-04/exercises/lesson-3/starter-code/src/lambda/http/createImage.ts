@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler, APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import 'source-map-support/register'
 import * as AWS  from 'aws-sdk'
-import * as uuid from 'uuid'
+import { v4 } from 'uuid'
 
 const docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -12,7 +12,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   console.log('Caller event', event)
   const groupId = event.pathParameters.groupId
   const validGroupId = await groupExists(groupId)
-  const itemId = uuid.v4()
+  const itemId = v4()
   const parsedBody = JSON.parse(event.body)
 
   if (!validGroupId) {
@@ -29,9 +29,9 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
 
   // TODO: Create an image
   const image = {
-    groupId: validGroupId,
+    groupId,
     imageId: itemId,
-    timeStamp: Date.now(),
+    timestamp: Date.now().toString(),
     ...parsedBody
   }
   
