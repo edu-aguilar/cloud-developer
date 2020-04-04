@@ -25,6 +25,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
   }
 
   // TODO: Create an image
+  console.log(imagesTable)
 
   return {
     statusCode: 201,
