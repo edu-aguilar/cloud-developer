@@ -86,7 +86,7 @@ functions:
     events:
       - http:
           method: POST
-          path: groups/{groupId}/image
+          path: groups/{groupId}/images
           cors: true
           reqValidatorName: RequestBodyValidator
           documentation:
